@@ -1,7 +1,7 @@
-# Snapmaker Orca Full Spectrum v0.92 (Pre-release)
+# FullSpectrum Full Spectrum v0.92 (Pre-release)
 
 Mixed-filament stability and workflow release.
-Based on Snapmaker Orca v2.2.4.
+Based on FullSpectrum v2.2.4.
 
 ## Highlights
 

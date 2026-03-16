@@ -1,5 +1,5 @@
 // PchipInterpolatorHelper.cpp
-// Snapmaker_Orca
+// FullSpectrum
 //
 // Implementation file for the PchipInterpolatorHelper class
 

@@ -54,10 +54,10 @@ public:
         wc.lpfnWndProc   = OpenGLVersionCheck::supports_opengl2_wndproc;
         wc.hInstance     = (HINSTANCE) GetModuleHandle(nullptr);
         wc.hbrBackground = (HBRUSH) (COLOR_BACKGROUND);
-        wc.lpszClassName = L"Snapmaker_Orca_opengl_version_check";
+        wc.lpszClassName = L"FullSpectrum_opengl_version_check";
         wc.style         = CS_OWNDC;
         if (RegisterClass(&wc)) {
-            HWND hwnd = CreateWindowW(wc.lpszClassName, L"Snapmaker_Orca_opengl_version_check", WS_OVERLAPPEDWINDOW, 0, 0, 640, 480, 0, 0,
+            HWND hwnd = CreateWindowW(wc.lpszClassName, L"FullSpectrum_opengl_version_check", WS_OVERLAPPEDWINDOW, 0, 0, 640, 480, 0, 0,
                                       wc.hInstance, (LPVOID) this);
             if (hwnd) {
                 message_pump_exit = false;
@@ -208,7 +208,7 @@ bool OpenGLVersionCheck::message_pump_exit = false;
 
 extern "C" {
 typedef int(__stdcall* Slic3rMainFunc)(int argc, wchar_t** argv);
-Slic3rMainFunc Snapmaker_Orca_main = nullptr;
+Slic3rMainFunc FullSpectrum_main = nullptr;
 }
 
 extern "C" {
@@ -288,11 +288,11 @@ int wmain(int argc, wchar_t** argv)
 
     wchar_t path_to_slic3r[MAX_PATH + 1] = {0};
     wcscpy(path_to_slic3r, path_to_exe);
-    wcscat(path_to_slic3r, L"Snapmaker_Orca.dll");
+    wcscat(path_to_slic3r, L"FullSpectrum.dll");
     //	printf("Loading Slic3r library: %S\n", path_to_slic3r);
     HINSTANCE hInstance_Slic3r = LoadLibraryExW(path_to_slic3r, nullptr, 0);
     if (hInstance_Slic3r == nullptr) {
-        printf("Snapmaker_Orca.dll was not loaded, error=%d\n", GetLastError());
+        printf("FullSpectrum.dll was not loaded, error=%d\n", GetLastError());
 
         auto soft_end_time = get_time_timestamp();
         std::string softEndTime = BP_SOFT_WORKS_TIME + std::string(":") + get_works_time(soft_end_time - soft_start_time);
@@ -302,17 +302,17 @@ int wmain(int argc, wchar_t** argv)
     }
 
     // resolve function address here
-    Snapmaker_Orca_main = (Slic3rMainFunc)
+    FullSpectrum_main = (Slic3rMainFunc)
         GetProcAddress(hInstance_Slic3r,
 #ifdef _WIN64
                        // there is just a single calling conversion, therefore no mangling of the function name.
-                       "Snapmaker_Orca_main"
+                       "FullSpectrum_main"
 #else // stdcall calling convention declaration
                        "_bambustu_main@8"
 #endif
         );
-    if (Snapmaker_Orca_main == nullptr) {
-        printf("could not locate the function Snapmaker_Orca_main in Snapmaker_Orca.dll\n");
+    if (FullSpectrum_main == nullptr) {
+        printf("could not locate the function FullSpectrum_main in FullSpectrum.dll\n");
         auto        soft_end_time = get_time_timestamp();
         std::string softEndTime   = BP_SOFT_WORKS_TIME + std::string(":") + get_works_time(soft_end_time - soft_start_time);
         sentryReportLog(SENTRY_LOG_TRACE, softEndTime, BP_START_SOFT);
@@ -321,7 +321,7 @@ int wmain(int argc, wchar_t** argv)
     }
 
     // argc minus the trailing nullptr of the argv
-    auto res = Snapmaker_Orca_main((int) argv_extended.size() - 1, argv_extended.data());
+    auto res = FullSpectrum_main((int) argv_extended.size() - 1, argv_extended.data());
     auto        soft_end_time = get_time_timestamp();
     std::string softEndTime   = BP_SOFT_WORKS_TIME + std::string(":") + get_works_time(soft_end_time - soft_start_time);
     sentryReportLog(SENTRY_LOG_TRACE, softEndTime, BP_START_SOFT);

@@ -1,7 +1,7 @@
 
 <h1> <p "font-size:200px;"> Full Spectrum</p> </h1>
 
-### A Snapmaker Orca Fork with Mixed-Color Filament Support
+### A FullSpectrum Fork with Mixed-Color Filament Support
 
 [![Build all](https://github.com/Snapmaker/OrcaSlicer/actions/workflows/build_all.yml/badge.svg?branch=main)](https://github.com/Snapmaker/OrcaSlicer/actions/workflows/build_all.yml)
 
@@ -28,7 +28,7 @@ If you find this fun or interesting!
 
 ---
 
-**Full Spectrum** is an open source slicer for FDM printers based on Snapmaker Orca and OrcaSlicer, optimized for Snapmaker's U1 multi-color 3D printer with independent tool heads. This fork adds support for virtual mixed-color filaments, enabling you to create new colors by alternating layers between physical filaments.
+**Full Spectrum** is an open source slicer for FDM printers based on FullSpectrum and OrcaSlicer, optimized for Snapmaker's U1 multi-color 3D printer with independent tool heads. This fork adds support for virtual mixed-color filaments, enabling you to create new colors by alternating layers between physical filaments.
  
 
 
@@ -104,7 +104,7 @@ These settings give you precise control over how your mixed colors appear in the
 
 **Mac**:
 1. Download the DMG for your computer: `arm64` version for Apple Silicon and `x86_64` for Intel CPU.  
-2. Drag Snapmaker_Orca.app to Application folder. 
+2. Drag FullSpectrum.app to Application folder. 
 3. *If you want to run a build from a PR, you also need to follow the instructions below:*  
     <details quarantine>
     - Option 1 (You only need to do this once. After that the app can be opened normally.):
@@ -112,9 +112,9 @@ These settings give you precise control over how your mixed colors appear in the
       - Step 2: A warning window will pop up, click _Open_  
       
     - Option 2:  
-      Execute this command in terminal: `xattr -dr com.apple.quarantine /Applications/Snapmaker_Orca.app`
+      Execute this command in terminal: `xattr -dr com.apple.quarantine /Applications/FullSpectrum.app`
       ```console
-          softfever@mac:~$ xattr -dr com.apple.quarantine /Applications/Snapmaker_Orca.app
+          softfever@mac:~$ xattr -dr com.apple.quarantine /Applications/FullSpectrum.app
       ```
     - Option 3:  
         - Step 1: open the app, a warning window will pop up  
@@ -125,7 +125,7 @@ These settings give you precise control over how your mixed colors appear in the
     
 **Linux (Ubuntu)**:
  1. If you run into trouble executing it, try this command in the terminal:  
-    `chmod +x /path_to_appimage/Snapmaker_Orca_Linux.AppImage`
+    `chmod +x /path_to_appimage/FullSpectrum_Linux.AppImage`
     
 # How to compile
 - Windows 64-bit  
@@ -141,8 +141,8 @@ These settings give you precise control over how your mixed colors appear in the
   - run `build_release_macos.sh`
   - To build and debug in Xcode:
       - run `Xcode.app`
-      - open ``build_`arch`/Snapmaker_Orca.Xcodeproj``
-      - menu bar: Product => Scheme => Snapmaker_Orca
+      - open ``build_`arch`/FullSpectrum.Xcodeproj``
+      - menu bar: Product => Scheme => FullSpectrum
       - menu bar: Product => Scheme => Edit Scheme...
           - Run => Info tab => Build Configuration: `RelWithDebInfo`
           - Run => Options tab => Document Versions: uncheck `Allow debugging when browsing versions`
@@ -167,7 +167,7 @@ resolution: 0.1
 
 
 ## Some background
-**Full Spectrum** is forked from Snapmaker Orca, which is originally forked from Orca Slicer by SoftFever.
+**Full Spectrum** is forked from FullSpectrum, which is originally forked from Orca Slicer by SoftFever.
 
 Orca Slicer was originally forked from Bambu Studio, it was previously known as BambuStudio-SoftFever.
 Bambu Studio is forked from [PrusaSlicer](https://github.com/prusa3d/PrusaSlicer) by Prusa Research, which is from [Slic3r](https://github.com/Slic3r/Slic3r) by Alessandro Ranellucci and the RepRap community. 
@@ -179,9 +179,9 @@ Special thanks to [u/Aceman11100](https://www.reddit.com/user/Aceman11100/) for 
 
 
 # License
-Full Spectrum is licensed under the GNU Affero General Public License, version 3. Full Spectrum is based on Snapmaker Orca.
+Full Spectrum is licensed under the GNU Affero General Public License, version 3. Full Spectrum is based on FullSpectrum.
 
-Snapmaker Orca is licensed under the GNU Affero General Public License, version 3. Snapmaker Orca is based on Orca Slicer by SoftFever.
+FullSpectrum is licensed under the GNU Affero General Public License, version 3. FullSpectrum is based on Orca Slicer by SoftFever.
 
 Orca Slicer is licensed under the GNU Affero General Public License, version 3. Orca Slicer is based on Bambu Studio by BambuLab.
 

@@ -1,7 +1,7 @@
-# Snapmaker Orca Full Spectrum v0.9.4
+# FullSpectrum Full Spectrum v0.9.4
 
 Mixed-filament workflow expansion, Local-Z ordering fixes, and release hardening.
-Based on Snapmaker Orca v2.2.4.
+Based on FullSpectrum v2.2.4.
 
 ## Highlights
 

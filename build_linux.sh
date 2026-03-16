@@ -209,7 +209,7 @@ if [[ -n "${BUILD_DEPS}" ]] ; then
 fi
 
 if [[ -n "${BUILD_ORCA}" ]] ; then
-    echo "Configuring Snapmaker_Orca..."
+    echo "Configuring FullSpectrum..."
     if [[ -n "${CLEAN_BUILD}" ]] ; then
         rm -fr build
     fi
@@ -229,7 +229,7 @@ if [[ -n "${BUILD_ORCA}" ]] ; then
         BUILD_ARGS+=(-DORCA_UPDATER_SIG_KEY="${ORCA_UPDATER_SIG_KEY}")
     fi
 
-    echo "Configuring Snapmaker_Orca..."
+    echo "Configuring FullSpectrum..."
     set -x
     cmake -S . -B build "${CMAKE_C_CXX_COMPILER_CLANG[@]}" "${CMAKE_LLD_LINKER_ARGS[@]}" -G "Ninja Multi-Config" \
 	  -DSLIC3R_PCH="${SLIC3R_PRECOMPILED_HEADERS}" \
@@ -240,17 +240,17 @@ if [[ -n "${BUILD_ORCA}" ]] ; then
 	  "${BUILD_ARGS[@]}"
     set +x
     echo "done"
-    echo "Building Snapmaker_Orca ..."
+    echo "Building FullSpectrum ..."
     if [[ -n "${BUILD_DEBUG}" ]] ; then
-        cmake --build build --config Debug --target Snapmaker_Orca
+        cmake --build build --config Debug --target FullSpectrum
     else
-        cmake --build build --config Release --target Snapmaker_Orca
+        cmake --build build --config Release --target FullSpectrum
     fi
-    echo "Building Snapmaker_Orca_profile_validator .."
+    echo "Building FullSpectrum_profile_validator .."
     if [[ -n "${BUILD_DEBUG}" ]] ; then
-        cmake --build build --config Debug --target Snapmaker_Orca_profile_validator
+        cmake --build build --config Debug --target FullSpectrum_profile_validator
     else
-        cmake --build build --config Release --target Snapmaker_Orca_profile_validator
+        cmake --build build --config Release --target FullSpectrum_profile_validator
     fi
     ./scripts/run_gettext.sh
     echo "done"

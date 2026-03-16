@@ -1,7 +1,7 @@
 ﻿## v0.7-alpha Pre-release
 
 EXPERIMENTAL BUILD - NOT TESTED
-Based on Snapmaker Orca v2.2.4
+Based on FullSpectrum v2.2.4
 
 v0.7 full spectrum alpha focuses on Local Z reliability, better mixed-filament control, and a cleaner custom Gradient/Pattern workflow.
 
@@ -50,7 +50,7 @@ This has had limited testing on the Snapmaker U1 via the community.
 - Reality check: this is likely a dead end for production use on current hardware and may be removed or replaced in a future release.
 
 ### Installation
-1. Download `Snapmaker_Orca.zip`.
+1. Download `FullSpectrum.zip`.
 2. Extract to a folder.
 3. Run the executable.
 

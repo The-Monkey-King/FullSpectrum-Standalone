@@ -1,12 +1,12 @@
 #
-# This CMake project downloads, configures and builds Snapmaker_Orca dependencies on Unix and Windows.
+# This CMake project downloads, configures and builds FullSpectrum dependencies on Unix and Windows.
 #
 # When using this script, it's recommended to perform an out-of-source build using CMake.
 #
 # All the dependencies are installed in a `destdir` directory in the root of the build directory,
 # in a traditional Unix-style prefix structure. The destdir can be used directly by CMake
-# when building Snapmaker_Orca - to do this, set the CMAKE_PREFIX_PATH to ${destdir}/usr/local.
-# Warning: On UNIX/Linux, you also need to set -DSLIC3R_STATIC=1 when building Snapmaker_Orca.
+# when building FullSpectrum - to do this, set the CMAKE_PREFIX_PATH to ${destdir}/usr/local.
+# Warning: On UNIX/Linux, you also need to set -DSLIC3R_STATIC=1 when building FullSpectrum.
 #
 # For better clarity of console output, it's recommended to _not_ use a parallelized build
 # for the top-level command, ie. use `make -j 1` or `ninja -j 1` to force single-threaded top-level
@@ -35,7 +35,7 @@ if(POLICY CMP0135) # DOWNLOAD_EXTRACT_TIMESTAMP
     cmake_policy(SET CMP0135 NEW)
 endif()
 
-project(Snapmaker_Orca-deps)
+project(FullSpectrum-deps)
 
 include(ExternalProject)
 include(ProcessorCount)
@@ -96,9 +96,9 @@ endif ()
 # Slic3r compiles with a different version which will cause runtime errors.
 # option(DEP_BUILD_IGL_STATIC "Build IGL as a static library. Might cause link errors and increase binary size." OFF)
 
-message(STATUS "Snapmaker_Orca deps DESTDIR: ${DESTDIR}")
-message(STATUS "Snapmaker_Orca dowload dir for source packages: ${DEP_DOWNLOAD_DIR}")
-message(STATUS "Snapmaker_Orca deps debug build: ${DEP_DEBUG}")
+message(STATUS "FullSpectrum deps DESTDIR: ${DESTDIR}")
+message(STATUS "FullSpectrum dowload dir for source packages: ${DEP_DOWNLOAD_DIR}")
+message(STATUS "FullSpectrum deps debug build: ${DEP_DEBUG}")
 
 find_package(Git REQUIRED)
 
@@ -110,7 +110,7 @@ if (NOT _is_multi AND NOT CMAKE_BUILD_TYPE)
     message(STATUS "Forcing CMAKE_BUILD_TYPE to Release as it was not specified.")
 endif ()
 
-function(Snapmaker_Orca_add_cmake_project projectname)
+function(FullSpectrum_add_cmake_project projectname)
     cmake_parse_arguments(P_ARGS "" "INSTALL_DIR;BUILD_COMMAND;INSTALL_COMMAND" "CMAKE_ARGS" ${ARGN})
 
     set(_configs_line -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE})
@@ -157,7 +157,7 @@ elseif(FLATPAK)
     # the only reason this is here is because of the HACK at the bottom for ci
     #
     # note for future devs: shared libs may actually create a size reduction
-    # but Snapmaker_Orca_deps tends to get really funny regarding linking after that (notably boost)
+    # but FullSpectrum_deps tends to get really funny regarding linking after that (notably boost)
     # so, as much as I would like to use that, it's not happening
     ExternalProject_Add(
         dep_${projectname}
@@ -208,7 +208,7 @@ else()
 
 endif()
 
-endfunction(Snapmaker_Orca_add_cmake_project)
+endfunction(FullSpectrum_add_cmake_project)
 
 
 if (MSVC)

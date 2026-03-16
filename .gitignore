@@ -26,7 +26,7 @@ deps/build*/*
 install_*
 build_*/
 SVG
-src/Snapmaker_Orca-doc/
+src/FullSpectrum-doc/
 .idea/
 /.cache/
 *.mo

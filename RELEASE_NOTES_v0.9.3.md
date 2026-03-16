@@ -1,7 +1,7 @@
-# Snapmaker Orca Full Spectrum v0.9.3 (Pre-release)
+# FullSpectrum Full Spectrum v0.9.3 (Pre-release)
 
 Mixed-filament reliability, Local-Z dithering fixes, and fork-safe CI/CD.
-Based on Snapmaker Orca v2.2.4.
+Based on FullSpectrum v2.2.4.
 
 ## Highlights
 

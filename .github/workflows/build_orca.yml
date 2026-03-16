@@ -20,7 +20,7 @@ on:
 
 jobs:
   build_orca:
-    name: Build Snapmaker_Orca
+    name: Build FullSpectrum
     runs-on: ${{ inputs.os }}
     outputs:
       release: ${{ steps.set_release.outputs.release || steps.set_release_win.outputs.release }}
@@ -139,73 +139,73 @@ jobs:
           security import $CERTIFICATE_PATH -P $P12_PASSWORD -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k $P12_PASSWORD $KEYCHAIN_PATH
-          codesign --deep --force --verbose --options runtime --timestamp --entitlements ${{ github.workspace }}/scripts/disable_validation.entitlements --sign "$CERTIFICATE_ID" "${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker Orca.app"
-          # Sign Snapmaker_Orca_profile_validator.app if it exists
-          if [ -f "${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker_Orca_profile_validator.app/Contents/MacOS/Snapmaker_Orca_profile_validator" ]; then
-            codesign --deep --force --verbose --options runtime --timestamp --entitlements ${{ github.workspace }}/scripts/disable_validation.entitlements --sign "$CERTIFICATE_ID" ${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker_Orca_profile_validator.app
+          codesign --deep --force --verbose --options runtime --timestamp --entitlements ${{ github.workspace }}/scripts/disable_validation.entitlements --sign "$CERTIFICATE_ID" "${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum.app"
+          # Sign FullSpectrum_profile_validator.app if it exists
+          if [ -f "${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum_profile_validator.app/Contents/MacOS/FullSpectrum_profile_validator" ]; then
+            codesign --deep --force --verbose --options runtime --timestamp --entitlements ${{ github.workspace }}/scripts/disable_validation.entitlements --sign "$CERTIFICATE_ID" ${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum_profile_validator.app
           fi
           
-          # Create main Snapmaker Orca DMG without the profile validator helper
-          mkdir -p ${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg
-          rm -rf ${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg/*
-          cp -R "${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker Orca.app" "${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg/"
-          ln -sfn /Applications ${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg/Applications
-          hdiutil create -volname "Snapmaker_Orca" -srcfolder ${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg -ov -format UDZO "${{ github.workspace }}/Snapmaker_Orca_Mac_universal_${{ env.ver }}.dmg"
-          codesign --deep --force --verbose --options runtime --timestamp --entitlements ${{ github.workspace }}/scripts/disable_validation.entitlements --sign "$CERTIFICATE_ID" "${{ github.workspace }}/Snapmaker_Orca_Mac_universal_${{ env.ver }}.dmg"
+          # Create main FullSpectrum DMG without the profile validator helper
+          mkdir -p ${{ github.workspace }}/build/universal/FullSpectrum_dmg
+          rm -rf ${{ github.workspace }}/build/universal/FullSpectrum_dmg/*
+          cp -R "${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum.app" "${{ github.workspace }}/build/universal/FullSpectrum_dmg/"
+          ln -sfn /Applications ${{ github.workspace }}/build/universal/FullSpectrum_dmg/Applications
+          hdiutil create -volname "FullSpectrum" -srcfolder ${{ github.workspace }}/build/universal/FullSpectrum_dmg -ov -format UDZO "${{ github.workspace }}/FullSpectrum_Mac_universal_${{ env.ver }}.dmg"
+          codesign --deep --force --verbose --options runtime --timestamp --entitlements ${{ github.workspace }}/scripts/disable_validation.entitlements --sign "$CERTIFICATE_ID" "${{ github.workspace }}/FullSpectrum_Mac_universal_${{ env.ver }}.dmg"
           
-          # Create separate Snapmaker_Orca_profile_validator DMG if the app exists
-          if [ -f "${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker_Orca_profile_validator.app/Contents/MacOS/Snapmaker_Orca_profile_validator" ]; then
-            mkdir -p ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg
-            rm -rf ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg/*
-            cp -R ${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker_Orca_profile_validator.app ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg/
-            ln -sfn /Applications ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg/Applications
-            hdiutil create -volname "Snapmaker_Orca Profile Validator" -srcfolder ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg -ov -format UDZO "${{ github.workspace }}/Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg"
-            codesign --deep --force --verbose --options runtime --timestamp --entitlements ${{ github.workspace }}/scripts/disable_validation.entitlements --sign "$CERTIFICATE_ID" "${{ github.workspace }}/Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg"
+          # Create separate FullSpectrum_profile_validator DMG if the app exists
+          if [ -f "${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum_profile_validator.app/Contents/MacOS/FullSpectrum_profile_validator" ]; then
+            mkdir -p ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg
+            rm -rf ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg/*
+            cp -R ${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum_profile_validator.app ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg/
+            ln -sfn /Applications ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg/Applications
+            hdiutil create -volname "FullSpectrum Profile Validator" -srcfolder ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg -ov -format UDZO "${{ github.workspace }}/FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg"
+            codesign --deep --force --verbose --options runtime --timestamp --entitlements ${{ github.workspace }}/scripts/disable_validation.entitlements --sign "$CERTIFICATE_ID" "${{ github.workspace }}/FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg"
           fi
           
           # Notarize main DMG
           xcrun notarytool store-credentials "notarytool-profile" --apple-id "${{ secrets.APPLE_DEV_ACCOUNT }}" --team-id "${{ secrets.TEAM_ID }}" --password "${{ secrets.APP_PWD }}"
-          xcrun notarytool submit "${{ github.workspace }}/Snapmaker_Orca_Mac_universal_${{ env.ver }}.dmg" --keychain-profile "notarytool-profile" --wait
-          xcrun stapler staple "${{ github.workspace }}/Snapmaker_Orca_Mac_universal_${{ env.ver }}.dmg"
+          xcrun notarytool submit "${{ github.workspace }}/FullSpectrum_Mac_universal_${{ env.ver }}.dmg" --keychain-profile "notarytool-profile" --wait
+          xcrun stapler staple "${{ github.workspace }}/FullSpectrum_Mac_universal_${{ env.ver }}.dmg"
           
           # Notarize profile validator DMG if it exists
-          if [ -f "${{ github.workspace }}/Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg" ]; then
-            xcrun notarytool submit "${{ github.workspace }}/Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg" --keychain-profile "notarytool-profile" --wait
-            xcrun stapler staple "${{ github.workspace }}/Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg"
+          if [ -f "${{ github.workspace }}/FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg" ]; then
+            xcrun notarytool submit "${{ github.workspace }}/FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg" --keychain-profile "notarytool-profile" --wait
+            xcrun stapler staple "${{ github.workspace }}/FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg"
           fi
 
       - name: Create DMG without notary
         if: ${{ inputs.os == 'macos-14' && (github.repository != 'Snapmaker/OrcaSlicer' || (github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/heads/release/') && github.ref != 'refs/heads/2.2.3')) }}
         working-directory: ${{ github.workspace }}
         run: |
-          mkdir -p ${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg
-          rm -rf ${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg/*
-          cp -R "${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker Orca.app" "${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg/"
-          ln -sfn /Applications ${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg/Applications
-          hdiutil create -volname "Snapmaker_Orca" -srcfolder ${{ github.workspace }}/build/universal/Snapmaker_Orca_dmg -ov -format UDZO Snapmaker_Orca_Mac_universal_${{ env.ver }}.dmg
+          mkdir -p ${{ github.workspace }}/build/universal/FullSpectrum_dmg
+          rm -rf ${{ github.workspace }}/build/universal/FullSpectrum_dmg/*
+          cp -R "${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum.app" "${{ github.workspace }}/build/universal/FullSpectrum_dmg/"
+          ln -sfn /Applications ${{ github.workspace }}/build/universal/FullSpectrum_dmg/Applications
+          hdiutil create -volname "FullSpectrum" -srcfolder ${{ github.workspace }}/build/universal/FullSpectrum_dmg -ov -format UDZO FullSpectrum_Mac_universal_${{ env.ver }}.dmg
           
-          # Create separate Snapmaker_Orca_profile_validator DMG if the app exists
-          if [ -f "${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker_Orca_profile_validator.app/Contents/MacOS/Snapmaker_Orca_profile_validator" ]; then
-            mkdir -p ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg
-            rm -rf ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg/*
-            cp -R ${{ github.workspace }}/build/universal/Snapmaker_Orca/Snapmaker_Orca_profile_validator.app ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg/
-            ln -sfn /Applications ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg/Applications
-            hdiutil create -volname "Snapmaker_Orca Profile Validator" -srcfolder ${{ github.workspace }}/build/universal/Snapmaker_Orca_profile_validator_dmg -ov -format UDZO "${{ github.workspace }}/Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg"
+          # Create separate FullSpectrum_profile_validator DMG if the app exists
+          if [ -f "${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum_profile_validator.app/Contents/MacOS/FullSpectrum_profile_validator" ]; then
+            mkdir -p ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg
+            rm -rf ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg/*
+            cp -R ${{ github.workspace }}/build/universal/FullSpectrum/FullSpectrum_profile_validator.app ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg/
+            ln -sfn /Applications ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg/Applications
+            hdiutil create -volname "FullSpectrum Profile Validator" -srcfolder ${{ github.workspace }}/build/universal/FullSpectrum_profile_validator_dmg -ov -format UDZO "${{ github.workspace }}/FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg"
           fi
 
       - name: Upload artifacts mac
         if: inputs.os == 'macos-14'
         uses: actions/upload-artifact@v4
         with:
-          name: Snapmaker_Orca_Mac_universal_${{ env.ver }}
-          path: ${{ github.workspace }}/Snapmaker_Orca_Mac_universal_${{ env.ver }}.dmg
+          name: FullSpectrum_Mac_universal_${{ env.ver }}
+          path: ${{ github.workspace }}/FullSpectrum_Mac_universal_${{ env.ver }}.dmg
 
-      - name: Upload Snapmaker_Orca_profile_validator DMG mac
+      - name: Upload FullSpectrum_profile_validator DMG mac
         if: inputs.os == 'macos-14'
         uses: actions/upload-artifact@v4
         with:
-          name: Snapmaker_Orca_profile_validator_Mac_universal_DMG_${{ env.ver }}
-          path: ${{ github.workspace }}/Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg
+          name: FullSpectrum_profile_validator_Mac_universal_DMG_${{ env.ver }}
+          path: ${{ github.workspace }}/FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg
           if-no-files-found: ignore
 
       - name: Upload dSYM artifacts mac
@@ -213,7 +213,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dSYM_Mac_${{ env.ver }}
-          path: ${{ github.workspace }}/build/universal/Snapmaker_Orca/dSYM
+          path: ${{ github.workspace }}/build/universal/FullSpectrum/dSYM
           if-no-files-found: warn
 
       - name: Deploy Mac release
@@ -222,8 +222,8 @@ jobs:
         with:
           upload_url: https://uploads.github.com/repos/Snapmaker/OrcaSlicer/releases/169912305/assets{?name,label}
           release_id: 169912305
-          asset_path: ${{ github.workspace }}/Snapmaker_Orca_Mac_universal_${{ env.ver }}.dmg
-          asset_name: Snapmaker_Orca_Mac_universal_${{ env.ver }}.dmg
+          asset_path: ${{ github.workspace }}/FullSpectrum_Mac_universal_${{ env.ver }}.dmg
+          asset_name: FullSpectrum_Mac_universal_${{ env.ver }}.dmg
           asset_content_type: application/octet-stream
           max_releases: 1 # optional, if there are more releases than this matching the asset_name, the oldest ones are going to be deleted
 
@@ -232,7 +232,7 @@ jobs:
         id: check_dmg
         working-directory: ${{ github.workspace }}
         run: |
-          if [ -f "Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg" ]; then
+          if [ -f "FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
             echo "DMG file found, will deploy"
           else
@@ -241,14 +241,14 @@ jobs:
           fi
         shell: bash
 
-      - name: Deploy Mac Snapmaker_Orca_profile_validator DMG release
+      - name: Deploy Mac FullSpectrum_profile_validator DMG release
         if: ${{ github.repository == 'Snapmaker/OrcaSlicer' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/2.2.3') && inputs.os == 'macos-14' && steps.check_dmg.outputs.exists == 'true' }}
         uses: WebFreak001/deploy-nightly@v3.2.0
         with:
           upload_url: https://uploads.github.com/repos/Snapmaker/OrcaSlicer/releases/169912305/assets{?name,label}
           release_id: 169912305
-          asset_path: ${{ github.workspace }}/Snapmaker_Orca_profile_validator_Mac_universal_${{ env.ver }}.dmg
-          asset_name: Snapmaker_Orca_profile_validator_Mac_universal_nightly.dmg
+          asset_path: ${{ github.workspace }}/FullSpectrum_profile_validator_Mac_universal_${{ env.ver }}.dmg
+          asset_name: FullSpectrum_profile_validator_Mac_universal_nightly.dmg
           asset_content_type: application/octet-stream
           max_releases: 1
 
@@ -281,7 +281,7 @@ jobs:
         if: inputs.os == 'windows-latest'
         working-directory: ${{ github.workspace }}/build
         shell: cmd
-        run: '"C:/Program Files/7-Zip/7z.exe" a -tzip Snapmaker_Orca_Windows_${{ env.ver }}_portable.zip ${{ github.workspace }}/build/Snapmaker_Orca'
+        run: '"C:/Program Files/7-Zip/7z.exe" a -tzip FullSpectrum_Windows_${{ env.ver }}_portable.zip ${{ github.workspace }}/build/FullSpectrum'
 
       - name: Pack PDB
         if: inputs.os == 'windows-latest'
@@ -293,15 +293,15 @@ jobs:
         if: inputs.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: Snapmaker_Orca_Windows_${{ env.ver }}_portable
-          path: ${{ github.workspace }}/build/Snapmaker_Orca_Windows_${{ env.ver }}_portable.zip
+          name: FullSpectrum_Windows_${{ env.ver }}_portable
+          path: ${{ github.workspace }}/build/FullSpectrum_Windows_${{ env.ver }}_portable.zip
 
       - name: Upload artifacts Win installer
         if: inputs.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: Snapmaker_Orca_Windows_${{ env.ver }}
-          path: ${{ github.workspace }}/build/Snapmaker_Orca*.exe
+          name: FullSpectrum_Windows_${{ env.ver }}
+          path: ${{ github.workspace }}/build/FullSpectrum*.exe
 
       - name: Upload artifacts Win PDB
         if: inputs.os == 'windows-latest'
@@ -310,12 +310,12 @@ jobs:
           name: PDB
           path: ${{ github.workspace }}/build/src/Release/Debug_PDB_${{ env.ver }}_for_developers_only.7z
 
-      - name: Upload Snapmaker_Orca_profile_validator Win
+      - name: Upload FullSpectrum_profile_validator Win
         if: inputs.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: Snapmaker_Orca_profile_validator_Windows_${{ env.ver }}
-          path: ${{ github.workspace }}/build/src/Release/Snapmaker_Orca_profile_validator.exe
+          name: FullSpectrum_profile_validator_Windows_${{ env.ver }}
+          path: ${{ github.workspace }}/build/src/Release/FullSpectrum_profile_validator.exe
 
       - name: Deploy Windows release portable
         if: ${{ github.repository == 'Snapmaker/OrcaSlicer' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/2.2.3') && inputs.os == 'windows-latest' }}
@@ -323,8 +323,8 @@ jobs:
         with:
           upload_url: https://uploads.github.com/repos/Snapmaker/OrcaSlicer/releases/169912305/assets{?name,label}
           release_id: 169912305
-          asset_path: ${{ github.workspace }}/build/Snapmaker_Orca_Windows_${{ env.ver }}_portable.zip
-          asset_name: Snapmaker_Orca_Windows_${{ env.ver }}_portable.zip
+          asset_path: ${{ github.workspace }}/build/FullSpectrum_Windows_${{ env.ver }}_portable.zip
+          asset_name: FullSpectrum_Windows_${{ env.ver }}_portable.zip
           asset_content_type: application/x-zip-compressed
           max_releases: 1
 
@@ -334,19 +334,19 @@ jobs:
         with:
           upload_url: https://uploads.github.com/repos/Snapmaker/OrcaSlicer/releases/169912305/assets{?name,label}
           release_id: 169912305
-          asset_path: ${{ github.workspace }}/build/Snapmaker_Orca_Windows_Installer_${{ env.ver }}.exe
-          asset_name: Snapmaker_Orca_Windows_Installer_${{ env.ver }}.exe
+          asset_path: ${{ github.workspace }}/build/FullSpectrum_Windows_Installer_${{ env.ver }}.exe
+          asset_name: FullSpectrum_Windows_Installer_${{ env.ver }}.exe
           asset_content_type: application/x-msdownload
           max_releases: 1
 
-      - name: Deploy Windows Snapmaker_Orca_profile_validator release
+      - name: Deploy Windows FullSpectrum_profile_validator release
         if: ${{ github.repository == 'Snapmaker/OrcaSlicer' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/2.2.3') && inputs.os == 'windows-latest' }}
         uses: WebFreak001/deploy-nightly@v3.2.0
         with:
           upload_url: https://uploads.github.com/repos/Snapmaker/OrcaSlicer/releases/169912305/assets{?name,label}
           release_id: 169912305
-          asset_path: ${{ github.workspace }}/build/src/Release/Snapmaker_Orca_profile_validator.exe
-          asset_name: Snapmaker_Orca_profile_validator_Windows_nightly.exe
+          asset_path: ${{ github.workspace }}/build/src/Release/FullSpectrum_profile_validator.exe
+          asset_name: FullSpectrum_profile_validator_Windows_nightly.exe
           asset_content_type: application/x-msdownload
           max_releases: 1
 
@@ -382,8 +382,8 @@ jobs:
           ubuntu-ver-str: ${{ (inputs.os == 'ubuntu-24.04' && '_Ubuntu2404') || '' }}
         run: |
           ./build_linux.sh -isr
-          mv -n ./build/Snapmaker_Orca_Linux_V${{ env.ver_pure }}.AppImage ./build/Snapmaker_Orca_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}.AppImage
-          chmod +x ./build/Snapmaker_Orca_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}.AppImage
+          mv -n ./build/FullSpectrum_Linux_V${{ env.ver_pure }}.AppImage ./build/FullSpectrum_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}.AppImage
+          chmod +x ./build/FullSpectrum_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}.AppImage
 
       - name: Build orca_custom_preset_tests
         id: custom_preset_tests
@@ -393,12 +393,12 @@ jobs:
         run: |
           archive="${{ github.workspace }}/resources/profiles/orca_custom_preset_tests.zip"
           rm -f "$archive"
-          if [ ! -x ./Snapmaker_Orca_profile_validator ]; then
-            echo "::warning::Snapmaker_Orca_profile_validator is missing; skipping custom preset archive generation"
+          if [ ! -x ./FullSpectrum_profile_validator ]; then
+            echo "::warning::FullSpectrum_profile_validator is missing; skipping custom preset archive generation"
             echo "created=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          if ! ./Snapmaker_Orca_profile_validator -p ${{ github.workspace }}/resources/profiles -g 1; then
+          if ! ./FullSpectrum_profile_validator -p ${{ github.workspace }}/resources/profiles -g 1; then
             echo "::warning::Failed to generate custom preset fixtures; skipping archive generation"
             echo "created=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -419,17 +419,17 @@ jobs:
           ubuntu-ver-str: ${{ (inputs.os == 'ubuntu-24.04' && '_Ubuntu2404') || '' }}
         uses: actions/upload-artifact@v4
         with:
-          name: Snapmaker_Orca_Linux_ubuntu_${{ env.ubuntu-ver }}_${{ env.ver }}
-          path: './build/Snapmaker_Orca_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}.AppImage'
+          name: FullSpectrum_Linux_ubuntu_${{ env.ubuntu-ver }}_${{ env.ver }}
+          path: './build/FullSpectrum_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}.AppImage'
 
-      - name: Upload Snapmaker_Orca_profile_validator Ubuntu
+      - name: Upload FullSpectrum_profile_validator Ubuntu
         if: ${{ ! env.ACT && inputs.os == 'ubuntu-20.04' || inputs.os == 'ubuntu-24.04' }}
         env:
           ubuntu-ver: ${{ (inputs.os == 'ubuntu-20.04' && '2004') || (inputs.os == 'ubuntu-24.04' && '2404') || '' }}
         uses: actions/upload-artifact@v4
         with:
-          name: Snapmaker_Orca_profile_validator_Linux_ubuntu_${{ env.ubuntu-ver }}_${{ env.ver }}
-          path: './build/src/Release/Snapmaker_Orca_profile_validator'
+          name: FullSpectrum_profile_validator_Linux_ubuntu_${{ env.ubuntu-ver }}_${{ env.ver }}
+          path: './build/src/Release/FullSpectrum_profile_validator'
 
       - name: Deploy Ubuntu release
         if: ${{ ! env.ACT && github.repository == 'Snapmaker/OrcaSlicer' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/2.2.3') && (inputs.os == 'ubuntu-20.04' || inputs.os == 'ubuntu-24.04') }}
@@ -439,8 +439,8 @@ jobs:
         with:
           upload_url: https://uploads.github.com/repos/Snapmaker/OrcaSlicer/releases/169912305/assets{?name,label}
           release_id: 169912305
-          asset_path: ./build/Snapmaker_Orca_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}.AppImage
-          asset_name: Snapmaker_Orca_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}_Beta.AppImage
+          asset_path: ./build/FullSpectrum_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}.AppImage
+          asset_name: FullSpectrum_Linux_AppImage${{ env.ubuntu-ver-str }}_${{ env.ver }}_Beta.AppImage
           asset_content_type: application/octet-stream
           max_releases: 1 # optional, if there are more releases than this matching the asset_name, the oldest ones are going to be deleted
       - name: Deploy Ubuntu release
@@ -452,7 +452,7 @@ jobs:
           force_push_tag: true
           message: "nightly-builds"
 
-      - name: Deploy Ubuntu Snapmaker_Orca_profile_validator release
+      - name: Deploy Ubuntu FullSpectrum_profile_validator release
         if: ${{ ! env.ACT && github.repository == 'Snapmaker/OrcaSlicer' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/2.2.3') && (inputs.os == 'ubuntu-20.04' || inputs.os == 'ubuntu-24.04') }}
         env:
           ubuntu-ver-str: ${{ (inputs.os == 'ubuntu-24.04' && '_Ubuntu2404') || '' }}
@@ -460,8 +460,8 @@ jobs:
         with:
           upload_url: https://uploads.github.com/repos/Snapmaker/OrcaSlicer/releases/169912305/assets{?name,label}
           release_id: 169912305
-          asset_path: ./build/src/Release/Snapmaker_Orca_profile_validator
-          asset_name: Snapmaker_Orca_profile_validator_Linux${{ env.ubuntu-ver-str }}_nightly
+          asset_path: ./build/src/Release/FullSpectrum_profile_validator
+          asset_name: FullSpectrum_profile_validator_Linux${{ env.ubuntu-ver-str }}_nightly
           asset_content_type: application/octet-stream
           max_releases: 1
 

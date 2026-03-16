@@ -120,7 +120,7 @@ wxBoxSizer* NetworkTestDialog::create_info_sizer(wxWindow* parent)
 	sizer->Add(text_basic_info, 0, wxALL, 5);
 
 	wxBoxSizer* version_sizer = new wxBoxSizer(wxHORIZONTAL);
-	text_version_title = new wxStaticText(this, wxID_ANY, _L("Snapmaker Orca Version:"), wxDefaultPosition, wxDefaultSize, 0);
+	text_version_title = new wxStaticText(this, wxID_ANY, _L("FullSpectrum Version:"), wxDefaultPosition, wxDefaultSize, 0);
 	text_version_title->Wrap(-1);
 	version_sizer->Add(text_version_title, 0, wxALL, 5);
 
@@ -165,11 +165,11 @@ wxBoxSizer* NetworkTestDialog::create_content_sizer(wxWindow* parent)
 	grid_sizer->SetFlexibleDirection(wxBOTH);
 	grid_sizer->SetNonFlexibleGrowMode(wxFLEX_GROWMODE_SPECIFIED);
 
-	btn_link = new Button(this, _L("Test Snapmaker Orca(GitHub)"));
+	btn_link = new Button(this, _L("Test FullSpectrum(GitHub)"));
     btn_link->SetStyle(ButtonStyle::Regular, ButtonType::Window);
 	grid_sizer->Add(btn_link, 0, wxEXPAND | wxALL, 5);
 
-	text_link_title = new wxStaticText(this, wxID_ANY, _L("Test Snapmaker Orca(GitHub):"), wxDefaultPosition, wxDefaultSize, 0);
+	text_link_title = new wxStaticText(this, wxID_ANY, _L("Test FullSpectrum(GitHub):"), wxDefaultPosition, wxDefaultSize, 0);
 	text_link_title->Wrap(-1);
 	grid_sizer->Add(text_link_title, 0, wxALIGN_RIGHT | wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
@@ -408,7 +408,7 @@ void NetworkTestDialog::start_all_job_sequence()
         if (self->m_closing.load()) return;
 
 		self->update_status(-1, "");
-		self->start_test_url(TEST_ORCA_JOB, "Snapmaker Orca(GitHub)", "https://github.com/Snapmaker/OrcaSlicer");
+		self->start_test_url(TEST_ORCA_JOB, "FullSpectrum(GitHub)", "https://github.com/Snapmaker/OrcaSlicer");
 		if (self->m_closing.load()) return;
 
 		// 如果用户输入了局域网设备IP，则进行测试
@@ -1080,7 +1080,7 @@ void NetworkTestDialog::start_test_github_thread()
     test_job[TEST_ORCA_JOB] = new boost::thread([weak_this = weak_this] {
         auto self = weak_this.lock();
 		if (!self) return;
-        self->start_test_url(TEST_ORCA_JOB, "Snapmaker Orca(GitHub)", "https://github.com/Snapmaker/OrcaSlicer");
+        self->start_test_url(TEST_ORCA_JOB, "FullSpectrum(GitHub)", "https://github.com/Snapmaker/OrcaSlicer");
     });
 }
 

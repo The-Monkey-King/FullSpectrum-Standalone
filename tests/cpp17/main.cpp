@@ -10,7 +10,7 @@
 #include <string_view>
 
 // Test for nested namespace definition
-namespace Snapmaker_Orca::Cpp17 {
+namespace FullSpectrum::Cpp17 {
 
 template<class T> class Foo
 {
@@ -20,7 +20,7 @@ public:
     explicit Foo(T &&arg): m_arg{arg} {}
 };
 
-} // namespace Snapmaker_Orca::Cpp17
+} // namespace FullSpectrum::Cpp17
 
 template<class T> std::string get_type(const T &v);
 
@@ -34,7 +34,7 @@ int main()
     // Template argument deduction for class templates
     // /////////////////////////////////////////////////////////////////////////
     
-    auto foo = Snapmaker_Orca::Cpp17::Foo{1.f};
+    auto foo = FullSpectrum::Cpp17::Foo{1.f};
     
     // /////////////////////////////////////////////////////////////////////////
     // Structured bindings:

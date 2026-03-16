@@ -203,8 +203,8 @@ enum class EWarning {
 | `src/slic3r/GUI/GLCanvas3D.cpp` | 添加警告文本和触发逻辑 |
 | `src/slic3r/GUI/3DScene.hpp` | 添加 GLVolume 成员变量 |
 | `src/slic3r/GUI/3DScene.cpp` | 实现距离检测逻辑 |
-| `localization/i18n/Snapmaker_Orca.pot` | 英文翻译 |
-| `localization/i18n/zh_CN/Snapmaker_Orca_zh_CN.po` | 中文翻译 |
+| `localization/i18n/FullSpectrum.pot` | 英文翻译 |
+| `localization/i18n/zh_CN/FullSpectrum_zh_CN.po` | 中文翻译 |
 
 ### 5.2 关键函数
 

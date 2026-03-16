@@ -103,10 +103,10 @@ enum class ERescaleTarget
 };
 
 #ifdef __APPLE__
-class Snapmaker_OrcaTaskBarIcon : public wxTaskBarIcon
+class FullSpectrumTaskBarIcon : public wxTaskBarIcon
 {
 public:
-    Snapmaker_OrcaTaskBarIcon(wxTaskBarIconType iconType = wxTBI_DEFAULT_TYPE) : wxTaskBarIcon(iconType) {}
+    FullSpectrumTaskBarIcon(wxTaskBarIconType iconType = wxTBI_DEFAULT_TYPE) : wxTaskBarIcon(iconType) {}
     wxMenu *CreatePopupMenu() override {
         wxMenu *menu = new wxMenu;
         if (wxGetApp().app_config->get("single_instance") == "false") {
@@ -157,7 +157,7 @@ static wxIcon main_frame_icon(GUI_App::EAppMode app_mode)
     }
     return wxIcon(path, wxBITMAP_TYPE_ICO);
 #else // _WIN32
-    return wxIcon(Slic3r::var("Snapmaker_Orca_128px.png"), wxBITMAP_TYPE_PNG);
+    return wxIcon(Slic3r::var("FullSpectrum_128px.png"), wxBITMAP_TYPE_PNG);
 #endif // _WIN32
 }
 
@@ -259,8 +259,8 @@ DPIFrame(NULL, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, BORDERLESS_FRAME_
     switch (wxGetApp().get_app_mode()) {
     default:
     case GUI_App::EAppMode::Editor:
-        m_taskbar_icon = std::make_unique<Snapmaker_OrcaTaskBarIcon>(wxTBI_DOCK);
-        m_taskbar_icon->SetIcon(wxIcon(Slic3r::var("Snapmaker_Orca-mac_256px.ico"), wxBITMAP_TYPE_ICO), "Snapmaker Orca");
+        m_taskbar_icon = std::make_unique<FullSpectrumTaskBarIcon>(wxTBI_DOCK);
+        m_taskbar_icon->SetIcon(wxIcon(Slic3r::var("FullSpectrum-mac_256px.ico"), wxBITMAP_TYPE_ICO), "FullSpectrum");
         break;
     case GUI_App::EAppMode::GCodeViewer:
         break;
@@ -2249,7 +2249,7 @@ static wxMenu* generate_help_menu()
         });
 
     // Report a bug
-    //append_menu_item(helpMenu, wxID_ANY, _L("Report Bug(TODO)"), _L("Report a bug of Snapmaker Orca"),
+    //append_menu_item(helpMenu, wxID_ANY, _L("Report Bug(TODO)"), _L("Report a bug of FullSpectrum"),
     //    [](wxCommandEvent&) {
     //        //TODO
     //    });
@@ -2907,13 +2907,13 @@ void MainFrame::init_menubar_as_editor()
 
 #ifdef __APPLE__
     wxString about_title = wxString::Format(_L("&About %s"), SLIC3R_APP_FULL_NAME);
-    //auto about_item = new wxMenuItem(parent_menu, Snapmaker_OrcaMenuAbout + bambu_studio_id_base, about_title, "");
+    //auto about_item = new wxMenuItem(parent_menu, FullSpectrumMenuAbout + bambu_studio_id_base, about_title, "");
         //parent_menu->Bind(wxEVT_MENU, [this, bambu_studio_id_base](wxEvent& event) {
         //    switch (event.GetId() - bambu_studio_id_base) {
-        //        case Snapmaker_OrcaMenuAbout:
+        //        case FullSpectrumMenuAbout:
         //            Slic3r::GUI::about();
         //            break;
-        //        case Snapmaker_OrcaMenuPreferences:
+        //        case FullSpectrumMenuPreferences:
         //            CallAfter([this] {
         //                PreferencesDialog dlg(this);
         //                dlg.ShowModal();
@@ -4214,7 +4214,7 @@ SettingsDialog::SettingsDialog(MainFrame* mainframe)
         SetIcon(wxIcon(szExeFileName, wxBITMAP_TYPE_ICO));
     }
 #else
-    SetIcon(wxIcon(var("Snapmaker_Orca_128px.png"), wxBITMAP_TYPE_PNG));
+    SetIcon(wxIcon(var("FullSpectrum_128px.png"), wxBITMAP_TYPE_PNG));
 #endif // _WIN32
 
     //just hide the Frame on closing

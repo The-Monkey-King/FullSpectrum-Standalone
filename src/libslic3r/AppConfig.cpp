@@ -1675,7 +1675,7 @@ void AppConfig::update_filament_names(json& j)
 
     //// 如果有更新，保存文件
     //if (need_save) {
-    //    std::string conf_path = (fs::path(Slic3r::data_dir()) / "Snapmaker_Orca.conf").string();
+    //    std::string conf_path = (fs::path(Slic3r::data_dir()) / "FullSpectrum.conf").string();
     //    boost::nowide::ofstream ofs(conf_path);
     //    ofs << std::setw(4) << j << std::endl;
     //}

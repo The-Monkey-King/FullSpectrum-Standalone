@@ -1,7 +1,7 @@
 ## v0.8 Pre-release
 
 EXPERIMENTAL BUILD - LIMITED TESTING
-Based on Snapmaker Orca v2.2.4
+Based on FullSpectrum v2.2.4
 
 v0.8 full spectrum pre-release focuses on filament mixer color accuracy and Linux AppImage packaging.
 
@@ -16,16 +16,16 @@ This has had limited testing on the Snapmaker U1 via the community.
 - Retained legacy RYB conversion helpers in code as reference.
 
 #### Linux AppImage Packaging (new in v0.8)
-- Added Linux release artifact: `Snapmaker_Orca_Linux_V2.2.4.AppImage`.
+- Added Linux release artifact: `FullSpectrum_Linux_V2.2.4.AppImage`.
 - AppImage is now the primary Linux release artifact for end users.
 - Current Linux build target is `x86_64`.
 - Current runtime baseline is glibc `2.38+`.
-- `Snapmaker_Orca.tar` remains available as an advanced/manual fallback.
+- `FullSpectrum.tar` remains available as an advanced/manual fallback.
 
 ### Installation
 
 #### Windows
-1. Download `Snapmaker_Orca.zip`.
+1. Download `FullSpectrum.zip`.
 2. Extract to a folder.
 3. Run the executable.
 
@@ -33,13 +33,13 @@ This has had limited testing on the Snapmaker U1 via the community.
 1. Download the macOS build (`arm64` for Apple Silicon or `x86_64` for Intel).
 2. If the release asset is a `.zip`, unzip it first.
 3. Open the `.dmg`.
-4. Drag `Snapmaker_Orca.app` into `Applications`.
+4. Drag `FullSpectrum.app` into `Applications`.
 5. Launch the app from `Applications`.
 
 #### Linux (AppImage)
-1. Download `Snapmaker_Orca_Linux_V2.2.4.AppImage`.
-2. Run `chmod +x Snapmaker_Orca_Linux_V2.2.4.AppImage`.
-3. Run `./Snapmaker_Orca_Linux_V2.2.4.AppImage`.
+1. Download `FullSpectrum_Linux_V2.2.4.AppImage`.
+2. Run `chmod +x FullSpectrum_Linux_V2.2.4.AppImage`.
+3. Run `./FullSpectrum_Linux_V2.2.4.AppImage`.
 
 ### Warning
 - Use at your own risk.

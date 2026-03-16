@@ -1,5 +1,5 @@
 // AdaptivePAProcessor.cpp
-// Snapmaker_Orca
+// FullSpectrum
 //
 // Implementation of the AdaptivePAProcessor class, responsible for processing G-code layers with adaptive pressure advance.
 

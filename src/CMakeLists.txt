@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(Snapmaker_Orca-native)
+project(FullSpectrum-native)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -87,92 +87,92 @@ if (SLIC3R_GUI)
 endif()
 
 if(ORCA_TOOLS)
-    # Snapmaker_Orca_profile_validator
+    # FullSpectrum_profile_validator
     if(APPLE)
-        add_executable(Snapmaker_Orca_profile_validator MACOSX_BUNDLE dev-utils/Snapmaker_Orca_profile_validator.cpp)
-        set_target_properties(Snapmaker_Orca_profile_validator PROPERTIES
+        add_executable(FullSpectrum_profile_validator MACOSX_BUNDLE dev-utils/FullSpectrum_profile_validator.cpp)
+        set_target_properties(FullSpectrum_profile_validator PROPERTIES
             MACOSX_BUNDLE TRUE
-            MACOSX_BUNDLE_BUNDLE_NAME "Snapmaker_Orca Profile Validator"
+            MACOSX_BUNDLE_BUNDLE_NAME "FullSpectrum Profile Validator"
             MACOSX_BUNDLE_BUNDLE_VERSION "${SLIC3R_VERSION}"
             MACOSX_BUNDLE_SHORT_VERSION_STRING "${SLIC3R_VERSION}"
-            MACOSX_BUNDLE_IDENTIFIER "com.Snapmaker.Snapmaker_Orca.profile-validator"
+            MACOSX_BUNDLE_IDENTIFIER "com.Snapmaker.FullSpectrum.profile-validator"
             MACOSX_BUNDLE_COPYRIGHT "Copyright © 2024-2026 Snapmaker. All rights reserved."
-            MACOSX_BUNDLE_GUI_IDENTIFIER "com.Snapmaker.Snapmaker_Orca.profile-validator"
+            MACOSX_BUNDLE_GUI_IDENTIFIER "com.Snapmaker.FullSpectrum.profile-validator"
         )
     else()
-        add_executable(Snapmaker_Orca_profile_validator dev-utils/Snapmaker_Orca_profile_validator.cpp)
+        add_executable(FullSpectrum_profile_validator dev-utils/FullSpectrum_profile_validator.cpp)
     endif()
-    target_link_libraries(Snapmaker_Orca_profile_validator libslic3r boost_headeronly libcurl OpenSSL::SSL OpenSSL::Crypto)
-    target_compile_definitions(Snapmaker_Orca_profile_validator PRIVATE -DBOOST_ALL_NO_LIB -DBOOST_USE_WINAPI_VERSION=0x602 -DBOOST_SYSTEM_USE_UTF8)
+    target_link_libraries(FullSpectrum_profile_validator libslic3r boost_headeronly libcurl OpenSSL::SSL OpenSSL::Crypto)
+    target_compile_definitions(FullSpectrum_profile_validator PRIVATE -DBOOST_ALL_NO_LIB -DBOOST_USE_WINAPI_VERSION=0x602 -DBOOST_SYSTEM_USE_UTF8)
     if(WIN32)
-        target_link_libraries(Snapmaker_Orca_profile_validator bcrypt.lib)
+        target_link_libraries(FullSpectrum_profile_validator bcrypt.lib)
     endif()
 endif()
 
 # Create a slic3r executable
 # Process mainfests for various platforms.
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev-utils/platform/msw/Snapmaker_Orca.rc.in ${CMAKE_CURRENT_BINARY_DIR}/Snapmaker_Orca.rc @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev-utils/platform/msw/Snapmaker_Orca.manifest.in ${CMAKE_CURRENT_BINARY_DIR}/Snapmaker_Orca.manifest @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev-utils/platform/msw/FullSpectrum.rc.in ${CMAKE_CURRENT_BINARY_DIR}/FullSpectrum.rc @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev-utils/platform/msw/FullSpectrum.manifest.in ${CMAKE_CURRENT_BINARY_DIR}/FullSpectrum.manifest @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev-utils/platform/osx/Info.plist.in ${CMAKE_CURRENT_BINARY_DIR}/Info.plist @ONLY)
 if (WIN32)
-    add_library(Snapmaker_Orca SHARED Snapmaker_Orca.cpp Snapmaker_Orca.hpp dev-utils/BaseException.cpp dev-utils/BaseException.h dev-utils/StackWalker.cpp dev-utils/StackWalker.h sentry_wrapper/SentryWrapper.hpp sentry_wrapper/SentryWrapper.cpp bury_cfg/bury_point.hpp bury_cfg/bury_point.cpp common_func/common_func.hpp common_func/common_func.cpp)
-    target_compile_definitions(Snapmaker_Orca PRIVATE BURY_EXPORTS)
+    add_library(FullSpectrum SHARED FullSpectrum.cpp FullSpectrum.hpp dev-utils/BaseException.cpp dev-utils/BaseException.h dev-utils/StackWalker.cpp dev-utils/StackWalker.h sentry_wrapper/SentryWrapper.hpp sentry_wrapper/SentryWrapper.cpp bury_cfg/bury_point.hpp bury_cfg/bury_point.cpp common_func/common_func.hpp common_func/common_func.cpp)
+    target_compile_definitions(FullSpectrum PRIVATE BURY_EXPORTS)
 else ()
-    add_executable(Snapmaker_Orca Snapmaker_Orca.cpp Snapmaker_Orca.hpp sentry_wrapper/SentryWrapper.hpp sentry_wrapper/SentryWrapper.cpp bury_cfg/bury_point.hpp bury_cfg/bury_point.cpp common_func/common_func.hpp common_func/common_func.cpp)
+    add_executable(FullSpectrum FullSpectrum.cpp FullSpectrum.hpp sentry_wrapper/SentryWrapper.hpp sentry_wrapper/SentryWrapper.cpp bury_cfg/bury_point.hpp bury_cfg/bury_point.cpp common_func/common_func.hpp common_func/common_func.cpp)
 endif ()
 
 if (MINGW)
-    target_link_options(Snapmaker_Orca PUBLIC "-Wl,-allow-multiple-definition")
-    set_target_properties(Snapmaker_Orca PROPERTIES PREFIX "")
+    target_link_options(FullSpectrum PUBLIC "-Wl,-allow-multiple-definition")
+    set_target_properties(FullSpectrum PROPERTIES PREFIX "")
 endif (MINGW)
 
 if (NOT WIN32 AND NOT APPLE)
     # Binary name on unix like systems (Linux, Unix)
-    set_target_properties(Snapmaker_Orca PROPERTIES OUTPUT_NAME "snapmaker-orca")
+    set_target_properties(FullSpectrum PROPERTIES OUTPUT_NAME "snapmaker-orca")
     set(SLIC3R_APP_CMD "snapmaker-orca")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dev-utils/platform/unix/build_linux_image.sh.in ${CMAKE_CURRENT_BINARY_DIR}/build_linux_image.sh USE_SOURCE_PERMISSIONS @ONLY)
 endif ()
 
-target_link_libraries(Snapmaker_Orca libslic3r cereal::cereal)
+target_link_libraries(FullSpectrum libslic3r cereal::cereal)
 # target_include_directories(OrcaSlicer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/slic3r)
 if (APPLE)
 #    add_compile_options(-stdlib=libc++)
 #    add_definitions(-DBOOST_THREAD_DONT_USE_CHRONO -DBOOST_NO_CXX11_RVALUE_REFERENCES -DBOOST_THREAD_USES_MOVE)
     # -liconv: boost links to libiconv by default
-    target_link_libraries(Snapmaker_Orca "-liconv -framework IOKit" "-framework CoreFoundation" "-framework AVFoundation" "-framework AVKit" "-framework CoreMedia" "-framework VideoToolbox" -lc++)
+    target_link_libraries(FullSpectrum "-liconv -framework IOKit" "-framework CoreFoundation" "-framework AVFoundation" "-framework AVKit" "-framework CoreMedia" "-framework VideoToolbox" -lc++)
 elseif (MSVC)
-    # Manifest is provided through Snapmaker_Orca.rc, don't generate your own.
+    # Manifest is provided through FullSpectrum.rc, don't generate your own.
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MANIFEST:NO")
 else ()
     # Boost on Raspberry-Pi does not link to pthreads explicitely.
-    target_link_libraries(Snapmaker_Orca ${CMAKE_DL_LIBS} -lstdc++ Threads::Threads pangoft2-1.0)
+    target_link_libraries(FullSpectrum ${CMAKE_DL_LIBS} -lstdc++ Threads::Threads pangoft2-1.0)
 endif ()
 
 # Add the Slic3r GUI library, libcurl, OpenGL and GLU libraries.
 if (SLIC3R_GUI)
-#    target_link_libraries(Snapmaker_Orca ws2_32 uxtheme setupapi libslic3r_gui ${wxWidgets_LIBRARIES})
-target_link_libraries(Snapmaker_Orca libslic3r_gui)
+#    target_link_libraries(FullSpectrum ws2_32 uxtheme setupapi libslic3r_gui ${wxWidgets_LIBRARIES})
+target_link_libraries(FullSpectrum libslic3r_gui)
     if (MSVC)
         # Generate debug symbols even in release mode.
-        target_link_options(Snapmaker_Orca PUBLIC "$<$<CONFIG:RELEASE>:/DEBUG>")
-        target_link_libraries(Snapmaker_Orca user32.lib Setupapi.lib)
+        target_link_options(FullSpectrum PUBLIC "$<$<CONFIG:RELEASE>:/DEBUG>")
+        target_link_libraries(FullSpectrum user32.lib Setupapi.lib)
     elseif (MINGW)
-        target_link_libraries(Snapmaker_Orca ws2_32 uxtheme setupapi)
+        target_link_libraries(FullSpectrum ws2_32 uxtheme setupapi)
     elseif (APPLE)
-        target_link_libraries(Snapmaker_Orca "-framework OpenGL")
+        target_link_libraries(FullSpectrum "-framework OpenGL")
     else ()
-        target_link_libraries(Snapmaker_Orca -ldl)
+        target_link_libraries(FullSpectrum -ldl)
     endif ()
     #if (WIN32)
     #    find_library(PSAPI_LIB NAMES Psapi)
-    #    target_link_libraries(Snapmaker_Orca ${PSAPI_LIB})
+    #    target_link_libraries(FullSpectrum ${PSAPI_LIB})
     #endif ()
 endif ()
 
 # Sentry crash reporting integration
 if (SLIC3R_SENTRY)
-    target_compile_definitions(Snapmaker_Orca PUBLIC SLIC3R_SENTRY)
-    target_link_libraries(Snapmaker_Orca sentry::sentry)
+    target_compile_definitions(FullSpectrum PUBLIC SLIC3R_SENTRY)
+    target_link_libraries(FullSpectrum sentry::sentry)
 endif()
 
 # On Windows, a shim application is required to produce a console / non console version of the Slic3r application.
@@ -183,22 +183,22 @@ if (WIN32)
     endif()
 
     
-    add_executable(Snapmaker_Orca_app_gui WIN32 Snapmaker_Orca_app_msvc.cpp sentry_wrapper/SentryWrapper.cpp common_func/common_func.cpp ${CMAKE_CURRENT_BINARY_DIR}/Snapmaker_Orca.rc)
+    add_executable(FullSpectrum_app_gui WIN32 FullSpectrum_app_msvc.cpp sentry_wrapper/SentryWrapper.cpp common_func/common_func.cpp ${CMAKE_CURRENT_BINARY_DIR}/FullSpectrum.rc)
     # Generate debug symbols even in release mode.
     if(MSVC)
-        target_link_options(Snapmaker_Orca_app_gui PUBLIC "$<$<CONFIG:RELEASE>:/DEBUG>")
+        target_link_options(FullSpectrum_app_gui PUBLIC "$<$<CONFIG:RELEASE>:/DEBUG>")
     endif()
-    target_compile_definitions(Snapmaker_Orca_app_gui PRIVATE -DSLIC3R_WRAPPER_NOCONSOLE)
-    add_dependencies(Snapmaker_Orca_app_gui Snapmaker_Orca)
-    set_target_properties(Snapmaker_Orca_app_gui PROPERTIES OUTPUT_NAME "snapmaker-orca")
+    target_compile_definitions(FullSpectrum_app_gui PRIVATE -DSLIC3R_WRAPPER_NOCONSOLE)
+    add_dependencies(FullSpectrum_app_gui FullSpectrum)
+    set_target_properties(FullSpectrum_app_gui PROPERTIES OUTPUT_NAME "snapmaker-orca")
     
     if (SLIC3R_SENTRY)
-        target_link_libraries(Snapmaker_Orca_app_gui PRIVATE boost_headeronly sentry::sentry nlohmann_json Snapmaker_Orca)
+        target_link_libraries(FullSpectrum_app_gui PRIVATE boost_headeronly sentry::sentry nlohmann_json FullSpectrum)
     else()
-        target_link_libraries(Snapmaker_Orca_app_gui PRIVATE boost_headeronly nlohmann_json Snapmaker_Orca)
+        target_link_libraries(FullSpectrum_app_gui PRIVATE boost_headeronly nlohmann_json FullSpectrum)
     endif()
     if (SLIC3R_SENTRY)
-        target_compile_definitions(Snapmaker_Orca_app_gui PRIVATE SLIC3R_SENTRY)
+        target_compile_definitions(FullSpectrum_app_gui PRIVATE SLIC3R_SENTRY)
     endif()
 endif ()
 
@@ -208,13 +208,13 @@ set(output_dlls_Debug "")
 set(output_dlls_RelWithDebInfo "")
 if (WIN32)
     # This has to be a separate target due to the windows command line lenght limits
-    add_custom_target(COPY_DLLS ALL DEPENDS Snapmaker_Orca)
+    add_custom_target(COPY_DLLS ALL DEPENDS FullSpectrum)
 
     if (CMAKE_CONFIGURATION_TYPES)
         foreach (CONF ${CMAKE_CONFIGURATION_TYPES})
             file(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}/${CONF}" WIN_CONF_OUTPUT_DIR)
             file(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}/${CONF}/resources" WIN_RESOURCES_SYMLINK)
-            add_custom_command(TARGET Snapmaker_Orca POST_BUILD
+            add_custom_command(TARGET FullSpectrum POST_BUILD
                 COMMAND if exist "${WIN_CONF_OUTPUT_DIR}" "("
                         if not exist "${WIN_RESOURCES_SYMLINK}" "("
                             mklink /J "${WIN_RESOURCES_SYMLINK}" "${SLIC3R_RESOURCES_DIR_WIN}"
@@ -228,29 +228,29 @@ if (WIN32)
         # For multi-config generators (Visual Studio), copy DLLs for all configurations
         foreach (CONF ${CMAKE_CONFIGURATION_TYPES})
             if ("${CONF}" STREQUAL "Debug")
-                Snapmaker_Orca_copy_dlls(COPY_DLLS "${CONF}" "d" output_dlls_Debug)
+                FullSpectrum_copy_dlls(COPY_DLLS "${CONF}" "d" output_dlls_Debug)
             elseif ("${CONF}" STREQUAL "Release")
-                Snapmaker_Orca_copy_dlls(COPY_DLLS "${CONF}" "" output_dlls_Release)
+                FullSpectrum_copy_dlls(COPY_DLLS "${CONF}" "" output_dlls_Release)
             elseif ("${CONF}" STREQUAL "RelWithDebInfo")
-                Snapmaker_Orca_copy_dlls(COPY_DLLS "${CONF}" "" output_dlls_RelWithDebInfo)
+                FullSpectrum_copy_dlls(COPY_DLLS "${CONF}" "" output_dlls_RelWithDebInfo)
             else()
                 # MinSizeRel or other configs
-                Snapmaker_Orca_copy_dlls(COPY_DLLS "${CONF}" "" _unused_dlls)
+                FullSpectrum_copy_dlls(COPY_DLLS "${CONF}" "" _unused_dlls)
             endif()
         endforeach ()
     else ()
         # Single-config generators (Ninja, Makefiles)
         file(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}/resources" WIN_RESOURCES_SYMLINK)
-        add_custom_command(TARGET Snapmaker_Orca POST_BUILD
+        add_custom_command(TARGET FullSpectrum POST_BUILD
             COMMAND if not exist "${WIN_RESOURCES_SYMLINK}" "(" mklink /J "${WIN_RESOURCES_SYMLINK}" "${SLIC3R_RESOURCES_DIR_WIN}" ")"
             COMMENT "Symlinking the resources directory into the build tree"
             VERBATIM
         )
         # Copy DLLs for single-config generators
         if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-            Snapmaker_Orca_copy_dlls(COPY_DLLS "Debug" "d" output_dlls_Debug)
+            FullSpectrum_copy_dlls(COPY_DLLS "Debug" "d" output_dlls_Debug)
         else()
-            Snapmaker_Orca_copy_dlls(COPY_DLLS "${CMAKE_BUILD_TYPE}" "" output_dlls_Release)
+            FullSpectrum_copy_dlls(COPY_DLLS "${CMAKE_BUILD_TYPE}" "" output_dlls_Release)
         endif()
     endif ()
 
@@ -258,27 +258,27 @@ if (WIN32)
 else ()
     if (APPLE AND NOT CMAKE_MACOSX_BUNDLE)
         # On OSX, the name of the binary matches the name of the Application.
-        add_custom_command(TARGET Snapmaker_Orca POST_BUILD
-            COMMAND ln -sf Snapmaker_Orca snapmaker-orca
-            WORKING_DIRECTORY "$<TARGET_FILE_DIR:Snapmaker_Orca>"
+        add_custom_command(TARGET FullSpectrum POST_BUILD
+            COMMAND ln -sf FullSpectrum snapmaker-orca
+            WORKING_DIRECTORY "$<TARGET_FILE_DIR:FullSpectrum>"
             VERBATIM)
         # Copy Sentry crashpad_handler to executable directory for non-bundle builds (e.g., Xcode debugging)
         if (SLIC3R_SENTRY)
-            add_custom_command(TARGET Snapmaker_Orca POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_PREFIX_PATH}/bin/crashpad_handler" "$<TARGET_FILE_DIR:Snapmaker_Orca>/crashpad_handler"
-                COMMAND sh -c "codesign --force --sign - '$<TARGET_FILE_DIR:Snapmaker_Orca>/crashpad_handler' 2>/dev/null || true"
+            add_custom_command(TARGET FullSpectrum POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_PREFIX_PATH}/bin/crashpad_handler" "$<TARGET_FILE_DIR:FullSpectrum>/crashpad_handler"
+                COMMAND sh -c "codesign --force --sign - '$<TARGET_FILE_DIR:FullSpectrum>/crashpad_handler' 2>/dev/null || true"
                 COMMENT "Copying crashpad_handler for Sentry crash reporting"
                 VERBATIM)
             # Copy libsentry.dylib to executable directory for non-bundle builds
-            add_custom_command(TARGET Snapmaker_Orca POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_PREFIX_PATH}/lib/libsentry.dylib" "$<TARGET_FILE_DIR:Snapmaker_Orca>/libsentry.dylib"
-                COMMAND sh -c "codesign --force --sign - '$<TARGET_FILE_DIR:Snapmaker_Orca>/libsentry.dylib' 2>/dev/null || true"
+            add_custom_command(TARGET FullSpectrum POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_PREFIX_PATH}/lib/libsentry.dylib" "$<TARGET_FILE_DIR:FullSpectrum>/libsentry.dylib"
+                COMMAND sh -c "codesign --force --sign - '$<TARGET_FILE_DIR:FullSpectrum>/libsentry.dylib' 2>/dev/null || true"
                 COMMENT "Copying libsentry.dylib for Sentry crash reporting"
                 VERBATIM)
         endif()
     else ()
-        add_custom_command(TARGET Snapmaker_Orca POST_BUILD
-            WORKING_DIRECTORY "$<TARGET_FILE_DIR:Snapmaker_Orca>"
+        add_custom_command(TARGET FullSpectrum POST_BUILD
+            WORKING_DIRECTORY "$<TARGET_FILE_DIR:FullSpectrum>"
             VERBATIM)
     endif ()
     if (XCODE)
@@ -290,41 +290,41 @@ else ()
     endif ()
     if (CMAKE_MACOSX_BUNDLE)
         set(MACOSX_BUNDLE_ICON_FILE Icon.icns)
-        set_target_properties(Snapmaker_Orca PROPERTIES
+        set_target_properties(FullSpectrum PROPERTIES
             MACOSX_BUNDLE TRUE
-            MACOSX_BUNDLE_BUNDLE_NAME "Snapmaker Orca"
+            MACOSX_BUNDLE_BUNDLE_NAME "FullSpectrum"
             MACOSX_BUNDLE_SHORT_VERSION_STRING ${Snapmaker_VERSION}
             MACOSX_BUNDLE_COPYRIGHT "Copyright © 2024-2026 Snapmaker. All rights reserved.")
         # Get the bundle directory by going up from the executable to the .app bundle
         if (CMAKE_CONFIGURATION_TYPES)
-            set(BIN_RESOURCES_DIR "$<TARGET_FILE_DIR:Snapmaker_Orca>/../Resources")
+            set(BIN_RESOURCES_DIR "$<TARGET_FILE_DIR:FullSpectrum>/../Resources")
         else()
-            set(BIN_RESOURCES_DIR "$<TARGET_FILE_DIR:Snapmaker_Orca>/../Resources")
+            set(BIN_RESOURCES_DIR "$<TARGET_FILE_DIR:FullSpectrum>/../Resources")
         endif()
         # Create symlink for macOS bundle Resources directory
         # Remove existing Resources if it exists (could be from previous build), then create symlink
-        add_custom_command(TARGET Snapmaker_Orca POST_BUILD
-            COMMAND sh -c "rm -rf \"$<TARGET_FILE_DIR:Snapmaker_Orca>/../Resources\" || true"
-            COMMAND ${CMAKE_COMMAND} -E create_symlink "${SLIC3R_RESOURCES_DIR}" "$<TARGET_FILE_DIR:Snapmaker_Orca>/../Resources"
+        add_custom_command(TARGET FullSpectrum POST_BUILD
+            COMMAND sh -c "rm -rf \"$<TARGET_FILE_DIR:FullSpectrum>/../Resources\" || true"
+            COMMAND ${CMAKE_COMMAND} -E create_symlink "${SLIC3R_RESOURCES_DIR}" "$<TARGET_FILE_DIR:FullSpectrum>/../Resources"
             COMMENT "Symlinking the resources directory into the build tree"
             VERBATIM)
         # Copy Sentry crashpad_handler to MacOS directory (same directory as executable)
         if (SLIC3R_SENTRY)
-            add_custom_command(TARGET Snapmaker_Orca POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_PREFIX_PATH}/bin/crashpad_handler" "$<TARGET_FILE_DIR:Snapmaker_Orca>/crashpad_handler"
-                COMMAND sh -c "codesign --force --sign - '$<TARGET_FILE_DIR:Snapmaker_Orca>/crashpad_handler' 2>/dev/null || true"
+            add_custom_command(TARGET FullSpectrum POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_PREFIX_PATH}/bin/crashpad_handler" "$<TARGET_FILE_DIR:FullSpectrum>/crashpad_handler"
+                COMMAND sh -c "codesign --force --sign - '$<TARGET_FILE_DIR:FullSpectrum>/crashpad_handler' 2>/dev/null || true"
                 COMMENT "Copying and signing crashpad_handler for Sentry crash reporting"
                 VERBATIM)
             # Copy libsentry.dylib to Frameworks directory
-            add_custom_command(TARGET Snapmaker_Orca POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:Snapmaker_Orca>/../Frameworks"
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_PREFIX_PATH}/lib/libsentry.dylib" "$<TARGET_FILE_DIR:Snapmaker_Orca>/../Frameworks/libsentry.dylib"
-                COMMAND sh -c "codesign --force --sign - '$<TARGET_FILE_DIR:Snapmaker_Orca>/../Frameworks/libsentry.dylib' 2>/dev/null || true"
+            add_custom_command(TARGET FullSpectrum POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:FullSpectrum>/../Frameworks"
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_PREFIX_PATH}/lib/libsentry.dylib" "$<TARGET_FILE_DIR:FullSpectrum>/../Frameworks/libsentry.dylib"
+                COMMAND sh -c "codesign --force --sign - '$<TARGET_FILE_DIR:FullSpectrum>/../Frameworks/libsentry.dylib' 2>/dev/null || true"
                 COMMENT "Copying and signing libsentry.dylib for Sentry crash reporting"
                 VERBATIM)
             # Update the rpath for libsentry.dylib
-            add_custom_command(TARGET Snapmaker_Orca POST_BUILD
-                COMMAND install_name_tool -change "@rpath/libsentry.dylib" "@executable_path/../Frameworks/libsentry.dylib" "$<TARGET_FILE:Snapmaker_Orca>" || true            
+            add_custom_command(TARGET FullSpectrum POST_BUILD
+                COMMAND install_name_tool -change "@rpath/libsentry.dylib" "@executable_path/../Frameworks/libsentry.dylib" "$<TARGET_FILE:FullSpectrum>" || true            
                 COMMENT "Updating rpath for libsentry.dylib"
                 VERBATIM)
         endif()
@@ -345,11 +345,11 @@ endif()
 message(STATUS "libslic3r-CMAKE_BUILD_TYPE: ${build_type}")
 message(STATUS "CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
 if (WIN32)
-    install(TARGETS Snapmaker_Orca RUNTIME DESTINATION ".")
+    install(TARGETS FullSpectrum RUNTIME DESTINATION ".")
     if (MSVC)
-        install(TARGETS Snapmaker_Orca_app_gui RUNTIME DESTINATION ".")
+        install(TARGETS FullSpectrum_app_gui RUNTIME DESTINATION ".")
     endif ()
     install(FILES ${output_dlls_${build_type}} DESTINATION ".")
 else ()
-    install(TARGETS Snapmaker_Orca RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(TARGETS FullSpectrum RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif ()

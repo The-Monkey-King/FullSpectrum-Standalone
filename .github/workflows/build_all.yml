@@ -95,7 +95,7 @@ jobs:
         safe_ref=$(printf '%s' "$ref_name" | tr '/ ' '--' | tr -cd '[:alnum:]._-' )
         version=$(grep 'set(Snapmaker_VERSION' version.inc | cut -d '"' -f2)
         tag="v${version}"
-        title="Snapmaker Orca Full Spectrum v${version}"
+        title="FullSpectrum Full Spectrum v${version}"
 
         notes_content=""
         for notes_file in \
@@ -131,7 +131,7 @@ jobs:
       run: |
         mkdir -p release-upload
         find release-assets -type f \
-          \( -name '*.dmg' -o -name '*.AppImage' -o -name '*.exe' -o -name '*.zip' -o -name '*.flatpak' -o -name 'Snapmaker_Orca_profile_validator' \) \
+          \( -name '*.dmg' -o -name '*.AppImage' -o -name '*.exe' -o -name '*.zip' -o -name '*.flatpak' -o -name 'FullSpectrum_profile_validator' \) \
           -print -exec cp -f {} release-upload/ \;
         count=$(find release-upload -maxdepth 1 -type f | wc -l | tr -d ' ')
         echo "count=$count" >> "$GITHUB_OUTPUT"
@@ -217,8 +217,8 @@ jobs:
       shell: bash
     - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
       with:
-        bundle: Snapmaker_Orca-Linux-flatpak_${{ env.ver }}_${{ matrix.variant.arch }}.flatpak
-        manifest-path: scripts/flatpak/io.github.Snapmaker.Snapmaker_Orca.yml
+        bundle: FullSpectrum-Linux-flatpak_${{ env.ver }}_${{ matrix.variant.arch }}.flatpak
+        manifest-path: scripts/flatpak/io.github.Snapmaker.FullSpectrum.yml
         cache: true
         arch: ${{ matrix.variant.arch }}
         upload-artifact: false
@@ -226,12 +226,12 @@ jobs:
       id: find_bundle
       working-directory: ${{ github.workspace }}
       run: |
-        BUNDLE_NAME="Snapmaker_Orca-Linux-flatpak_${{ env.ver }}_${{ matrix.variant.arch }}.flatpak"
+        BUNDLE_NAME="FullSpectrum-Linux-flatpak_${{ env.ver }}_${{ matrix.variant.arch }}.flatpak"
         # Try multiple possible locations
         if [ -f "$BUNDLE_NAME" ]; then
           BUNDLE_PATH="$(pwd)/$BUNDLE_NAME"
-        elif [ -f "/__w/Snapmaker_Orca/Snapmaker_Orca/$BUNDLE_NAME" ]; then
-          BUNDLE_PATH="/__w/Snapmaker_Orca/Snapmaker_Orca/$BUNDLE_NAME"
+        elif [ -f "/__w/FullSpectrum/FullSpectrum/$BUNDLE_NAME" ]; then
+          BUNDLE_PATH="/__w/FullSpectrum/FullSpectrum/$BUNDLE_NAME"
         else
           # Search in current directory and subdirectories
           FOUND=$(find . -name "$BUNDLE_NAME" -type f | head -1)
@@ -252,7 +252,7 @@ jobs:
     - name: Upload artifacts Flatpak
       uses: actions/upload-artifact@v4
       with:
-        name: Snapmaker_Orca-Linux-flatpak_${{ env.ver }}_${{ matrix.variant.arch }}.flatpak
+        name: FullSpectrum-Linux-flatpak_${{ env.ver }}_${{ matrix.variant.arch }}.flatpak
         path: ${{ steps.find_bundle.outputs.path }}
         if-no-files-found: error
 
@@ -263,6 +263,6 @@ jobs:
         upload_url: https://uploads.github.com/repos/Snapmaker/OrcaSlicer/releases/169912305/assets{?name,label}
         release_id: 169912305
         asset_path: ${{ steps.find_bundle.outputs.path }}
-        asset_name: Snapmaker_Orca-Linux-flatpak_${{ env.ver }}_${{ matrix.variant.arch }}_Beta.flatpak
+        asset_name: FullSpectrum-Linux-flatpak_${{ env.ver }}_${{ matrix.variant.arch }}_Beta.flatpak
         asset_content_type: application/octet-stream
         max_releases: 1 # optional, if there are more releases than this matching the asset_name, the oldest ones are going to be deleted

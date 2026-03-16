@@ -1,6 +1,6 @@
 ## ⚠️ EXPERIMENTAL BUILD - NOT TESTED ⚠️
 
-Based on Snapmaker Orca v2.2.4
+Based on FullSpectrum v2.2.4
 
 This is an alpha release of Full Spectrum with mixed-color filament support.
 
@@ -25,7 +25,7 @@ This is an alpha release of Full Spectrum with mixed-color filament support.
 - Updated mixed-setting tooltips with experimental disclaimers and a wiki-availability note.
 
 ### Installation
-1. Download `Snapmaker_Orca.exe` (or the full package)
+1. Download `FullSpectrum.exe` (or the full package)
 2. Extract to a folder
 3. Run the executable
 

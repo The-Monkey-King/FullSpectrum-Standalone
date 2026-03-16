@@ -88,13 +88,13 @@ namespace common
             }                      
             
             std::string filePath = path;
-            versionFilePath      = filePath + "\\" + std::string("Snapmaker_Orca\\web\\flutter_web\\version.json");
+            versionFilePath      = filePath + "\\" + std::string("FullSpectrum\\web\\flutter_web\\version.json");
 
             delete[] path;
 #elif __APPLE__
             const char* home_env = getenv("HOME");
             versionFilePath      = home_env;
-            versionFilePath      = versionFilePath + "/Library/Application Support/Snapmaker_Orca/web/flutter_web/version.json";
+            versionFilePath      = versionFilePath + "/Library/Application Support/FullSpectrum/web/flutter_web/version.json";
 #else
 
 #endif
@@ -134,13 +134,13 @@ namespace common
         } 
 
         std::string filePath = path;
-        cfgfile              = filePath + "\\" + std::string("Snapmaker_Orca\\Snapmaker_Orca.conf");
+        cfgfile              = filePath + "\\" + std::string("FullSpectrum\\FullSpectrum.conf");
         delete[] path;
 
 #elif __APPLE__
         const char* home_env = getenv("HOME");
         versionFilePath      = home_env;
-        cfgfile              = versionFilePath + "/Library/Application Support/Snapmaker_Orca/Snapmaker_Orca.conf";
+        cfgfile              = versionFilePath + "/Library/Application Support/FullSpectrum/FullSpectrum.conf";
 #else
 
 #endif
@@ -176,13 +176,13 @@ namespace common
         } 
 
         std::string filePath = path;
-        cfgfile              = filePath + "\\" + std::string("Snapmaker_Orca\\Snapmaker_Orca.conf");
+        cfgfile              = filePath + "\\" + std::string("FullSpectrum\\FullSpectrum.conf");
         delete[] path;
 
 #elif __APPLE__
         const char* home_env = getenv("HOME");
         versionFilePath      = home_env;
-        cfgfile              = versionFilePath + "/Library/Application Support/Snapmaker_Orca/Snapmaker_Orca.conf";
+        cfgfile              = versionFilePath + "/Library/Application Support/FullSpectrum/FullSpectrum.conf";
 #else
 
 #endif

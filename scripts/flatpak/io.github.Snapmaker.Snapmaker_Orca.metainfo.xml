@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-    <id>io.github.Snapmaker.Snapmaker_Orca</id>
-    <launchable type="desktop-id">io.github.Snapmaker.Snapmaker_Orca.desktop</launchable>
+    <id>io.github.Snapmaker.FullSpectrum</id>
+    <launchable type="desktop-id">io.github.Snapmaker.FullSpectrum.desktop</launchable>
     <provides>
-        <id>io.github.Snapmaker.Snapmaker_Orca.desktop</id>
+        <id>io.github.Snapmaker.FullSpectrum.desktop</id>
     </provides>
-    <name>Snapmaker_Orca</name>
+    <name>FullSpectrum</name>
     <summary>Get even more perfect prints!</summary>
     <developer_name>Snapmaker</developer_name>
     <url type="homepage">https://github.com/Snapmaker/OrcaSlicer</url>

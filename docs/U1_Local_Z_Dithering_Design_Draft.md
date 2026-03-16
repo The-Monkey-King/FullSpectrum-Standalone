@@ -2,7 +2,7 @@
 
 Status: Draft for later implementation
 Last updated: 2026-02-10
-Owner: Snapmaker Orca engineering
+Owner: FullSpectrum engineering
 
 ## 1. Problem Statement
 

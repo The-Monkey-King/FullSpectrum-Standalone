@@ -2949,7 +2949,7 @@ bool SelectMachineDialog::is_show_timelapse()
                 }
                 break;
             }
-            if (line == "Snapmaker Orca")
+            if (line == "FullSpectrum")
                 is_version = true;
         }
     }

@@ -950,7 +950,7 @@ wxWindow *PreferencesDialog ::create_item_radiobox(wxString title, wxWindow *par
 wxBoxSizer* PreferencesDialog::create_item_link_association(wxWindow* parent, wxString url_prefix, wxString website_name)
 {
     wxString title = _L("Associate") + (boost::format(" %1%://") % url_prefix.c_str()).str();
-    wxString tooltip = _L("Associate") + " " + url_prefix + ":// " + _L("with Snapmaker Orca so that Orca can open models from") + " " + website_name;
+    wxString tooltip = _L("Associate") + " " + url_prefix + ":// " + _L("with FullSpectrum so that Orca can open models from") + " " + website_name;
 
     std::wstring registered_bin; // not used, just here to provide a ref to check fn
     bool reg_to_current_instance = wxGetApp().check_url_association(url_prefix.ToStdWstring(), registered_bin);
@@ -1054,7 +1054,7 @@ void PreferencesDialog::create()
     m_backup_interval_time = app_config->get("backup_interval");
 
     // set icon for dialog
-    std::string icon_path = (boost::format("%1%/images/Snapmaker_OrcaTitle.ico") % resources_dir()).str();
+    std::string icon_path = (boost::format("%1%/images/FullSpectrumTitle.ico") % resources_dir()).str();
     SetIcon(wxIcon(encode_path(icon_path.c_str()), wxBITMAP_TYPE_ICO));
     SetSizeHints(wxDefaultSize, wxDefaultSize);
 
@@ -1202,12 +1202,12 @@ wxWindow* PreferencesDialog::create_general_page()
 
     std::vector<wxString> Units         = {_L("Metric") + " (mm, g)", _L("Imperial") + " (in, oz)"};
     auto item_currency = create_item_combobox(_L("Units"), page, _L("Units"), "use_inches", Units);
-    auto item_single_instance = create_item_checkbox(_L("Allow only one Snapmaker Orca instance"), page, 
+    auto item_single_instance = create_item_checkbox(_L("Allow only one FullSpectrum instance"), page, 
     #if __APPLE__
             _L("On OSX there is always only one instance of app running by default. However it is allowed to run multiple instances "
                 "of same app from the command line. In such case this settings will allow only one instance."),
     #else
-            _L("If this is enabled, when starting Snapmaker Orca and another instance of the same Snapmaker Orca is already running, that instance will be reactivated instead."), 
+            _L("If this is enabled, when starting FullSpectrum and another instance of the same FullSpectrum is already running, that instance will be reactivated instead."), 
     #endif
             50, "single_instance");
 
@@ -1230,7 +1230,7 @@ wxWindow* PreferencesDialog::create_general_page()
     auto item_calc_in_long_retract = create_item_checkbox(_L("Flushing volumes: Auto-calculate every time when the filament is changed."), page, _L("If enabled, auto-calculate every time when filament is changed"), 50, "auto_calculate_when_filament_change");
     auto item_remember_printer_config = create_item_checkbox(_L("Remember printer configuration"), page, _L("If enabled, Orca will remember and switch filament/process configuration for each printer automatically."), 50, "remember_printer_config");
     auto item_step_mesh_setting = create_item_checkbox(_L("Show the step mesh parameter setting dialog."), page, _L("If enabled,a parameter settings dialog will appear during STEP file import."), 50, "enable_step_mesh_setting");
-    auto item_multi_machine = create_item_checkbox(_L("Multi-device Management (Take effect after restarting Snapmaker Orca)."), page, _L("With this option enabled, you can send a task to multiple devices at the same time and manage multiple devices."), 50, "enable_multi_machine");
+    auto item_multi_machine = create_item_checkbox(_L("Multi-device Management (Take effect after restarting FullSpectrum)."), page, _L("With this option enabled, you can send a task to multiple devices at the same time and manage multiple devices."), 50, "enable_multi_machine");
     auto item_auto_arrange  = create_item_checkbox(_L("Auto arrange plate after cloning"), page, _L("Auto arrange plate after object cloning"), 50, "auto_arrange");
     auto title_presets = create_item_title(_L("Presets"), page, _L("Presets"));
     //auto title_network = create_item_title(_L("Network"), page, _L("Network"));
@@ -1241,17 +1241,17 @@ wxWindow* PreferencesDialog::create_general_page()
     });
 
 #ifdef _WIN32
-    auto title_associate_file = create_item_title(_L("Associate files to Snapmaker Orca"), page, _L("Associate files to Snapmaker Orca"));
+    auto title_associate_file = create_item_title(_L("Associate files to FullSpectrum"), page, _L("Associate files to FullSpectrum"));
 
     // associate file
-    auto item_associate_3mf  = create_item_checkbox(_L("Associate .3mf files to Snapmaker Orca"), page,
-                                                        _L("If enabled, sets Snapmaker Orca as default application to open .3mf files"), 50, "associate_3mf");
-    auto item_associate_stl  = create_item_checkbox(_L("Associate .stl files to Snapmaker Orca"), page,
-                                                        _L("If enabled, sets Snapmaker Orca as default application to open .stl files"), 50, "associate_stl");
-    auto item_associate_step = create_item_checkbox(_L("Associate .step/.stp files to Snapmaker Orca"), page,
-                                                         _L("If enabled, sets Snapmaker Orca as default application to open .step files"), 50, "associate_step");
+    auto item_associate_3mf  = create_item_checkbox(_L("Associate .3mf files to FullSpectrum"), page,
+                                                        _L("If enabled, sets FullSpectrum as default application to open .3mf files"), 50, "associate_3mf");
+    auto item_associate_stl  = create_item_checkbox(_L("Associate .stl files to FullSpectrum"), page,
+                                                        _L("If enabled, sets FullSpectrum as default application to open .stl files"), 50, "associate_stl");
+    auto item_associate_step = create_item_checkbox(_L("Associate .step/.stp files to FullSpectrum"), page,
+                                                         _L("If enabled, sets FullSpectrum as default application to open .step files"), 50, "associate_step");
 
-    auto title_associate_url = create_item_title(_L("Associate web links to Snapmaker Orca"), page, _L("Associate URLs to Snapmaker Orca"));
+    auto title_associate_url = create_item_title(_L("Associate web links to FullSpectrum"), page, _L("Associate URLs to FullSpectrum"));
 
     auto associate_url_prusaslicer = create_item_link_association(page, L"prusaslicer", "Printables.com");
     auto associate_url_bambustudio = create_item_link_association(page, L"bambustudio", "Makerworld.com");

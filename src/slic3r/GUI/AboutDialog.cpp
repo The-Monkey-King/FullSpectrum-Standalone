@@ -18,7 +18,7 @@ AboutDialogLogo::AboutDialogLogo(wxWindow* parent)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize)
 {
     this->SetBackgroundColour(*wxWHITE);
-    this->logo = ScalableBitmap(this, Slic3r::var("Snapmaker_Orca_192px.png"), wxBITMAP_TYPE_PNG);
+    this->logo = ScalableBitmap(this, Slic3r::var("FullSpectrum_192px.png"), wxBITMAP_TYPE_PNG);
     this->SetMinSize(this->logo.GetBmpSize());
 
     this->Bind(wxEVT_PAINT, &AboutDialogLogo::onRepaint, this);
@@ -50,7 +50,7 @@ CopyrightsDialog::CopyrightsDialog()
     this->SetFont(wxGetApp().normal_font());
 	this->SetBackgroundColour(*wxWHITE);
 
-    std::string icon_path = (boost::format("%1%/images/Snapmaker_OrcaTitle.ico") % resources_dir()).str();
+    std::string icon_path = (boost::format("%1%/images/FullSpectrumTitle.ico") % resources_dir()).str();
     SetIcon(wxIcon(encode_path(icon_path.c_str()), wxBITMAP_TYPE_ICO));
 
     wxStaticLine *staticline1 = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
@@ -149,9 +149,9 @@ wxString CopyrightsDialog::get_html_text()
                 "<font size=\"3\">",
          bgr_clr_str, text_clr_str, text_clr_str,
         _L("License"),
-        _L("Snapmaker Orca is licensed under "),
+        _L("FullSpectrum is licensed under "),
         "https://www.gnu.org/licenses/agpl-3.0.html",_L("GNU Affero General Public License, version 3"),
-        _L("Snapmaker Orca is Based on Orca Slicer"),
+        _L("FullSpectrum is Based on Orca Slicer"),
         _L("Libraries"),
         _L("This software uses open source components whose copyright and other proprietary rights belong to their respective owners"));
 
@@ -212,7 +212,7 @@ void CopyrightsDialog::onCloseDialog(wxEvent &)
 AboutDialog::AboutDialog()
     : DPIDialog(static_cast<wxWindow *>(wxGetApp().mainframe),
                 wxID_ANY,
-                wxString::Format(_L("About %s"), _L("Snapmaker Orca Full Spectrum")),
+                wxString::Format(_L("About %s"), _L("FullSpectrum Full Spectrum")),
                 wxDefaultPosition,
                 wxDefaultSize,
                 /*wxCAPTION*/wxDEFAULT_DIALOG_STYLE)
@@ -220,7 +220,7 @@ AboutDialog::AboutDialog()
     SetFont(wxGetApp().normal_font());
 	SetBackgroundColour(*wxWHITE);
 
-    std::string icon_path = (boost::format("%1%/images/Snapmaker_OrcaTitle.ico") % resources_dir()).str();
+    std::string icon_path = (boost::format("%1%/images/FullSpectrumTitle.ico") % resources_dir()).str();
     SetIcon(wxIcon(encode_path(icon_path.c_str()), wxBITMAP_TYPE_ICO));
 
     wxPanel *m_panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(FromDIP(560), FromDIP(237)), wxTAB_TRAVERSAL);
@@ -237,7 +237,7 @@ AboutDialog::AboutDialog()
     main_sizer->Add(ver_sizer, 0, wxEXPAND | wxALL, 0);
 
     // logo
-    m_logo_bitmap = ScalableBitmap(this, "Snapmaker_Orca_about", 250);
+    m_logo_bitmap = ScalableBitmap(this, "FullSpectrum_about", 250);
     m_logo = new wxStaticBitmap(this, wxID_ANY, m_logo_bitmap.bmp(), wxDefaultPosition,wxDefaultSize, 0);
     m_logo->SetSizer(vesizer);
 
@@ -246,7 +246,7 @@ AboutDialog::AboutDialog()
     // version
     {
         vesizer->Add(0, FromDIP(165), 1, wxEXPAND, FromDIP(5));
-        auto version_string = _L("Snapmaker Orca Full Spectrum") + " " + std::string(Snapmaker_VERSION);
+        auto version_string = _L("FullSpectrum Full Spectrum") + " " + std::string(Snapmaker_VERSION);
         wxStaticText* version = new wxStaticText(this, wxID_ANY, version_string.c_str(), wxDefaultPosition, wxDefaultSize);
         wxStaticText* bs_version = new wxStaticText(this, wxID_ANY, wxString::Format("Based on Orca Slicer"), wxDefaultPosition, wxDefaultSize);
         bs_version->SetFont(Label::Body_12);
@@ -282,7 +282,7 @@ AboutDialog::AboutDialog()
 
     std::vector<wxString> text_list;
     
-    /*text_list.push_back(_L("Snapmaker Orca is based on BambuStudio, PrusaSlicer, and SuperSlicer."));
+    /*text_list.push_back(_L("FullSpectrum is based on BambuStudio, PrusaSlicer, and SuperSlicer."));
     text_list.push_back(_L("BambuStudio is originally based on PrusaSlicer by PrusaResearch."));
     text_list.push_back(_L("PrusaSlicer is originally based on Slic3r by Alessandro Ranellucci."));
     text_list.push_back(_L("Slic3r was created by Alessandro Ranellucci with the help of many other contributors."));*/
@@ -290,12 +290,12 @@ AboutDialog::AboutDialog()
 
     // SM Beta
     text_list.push_back(_L("Note: The firmware version of SnapmakerU1 should be no less than") + " " + std::string(MIN_FIRM_VER));
-    text_list.push_back(_L("Snapmaker Orca is forked from Orca Slicer by SoftFever."));
+    text_list.push_back(_L("FullSpectrum is forked from Orca Slicer by SoftFever."));
     text_list.push_back(_L("OrcaSlicer is forked from Bambu Studio by Bambu Lab."));
     text_list.push_back(_L("Bambu Studio is forked from PrusaSlicer by Prusa Research, which is from Slic3r by Alessandro Ranellucci and the RepRap community. Orca Slicer incorporates a lot of features from SuperSlicer by @supermerill."));
-    text_list.push_back(_L("Snapmaker Orca integrates some features from the 3D printing open-source community, with specific attributions provided in the code comments."));
+    text_list.push_back(_L("FullSpectrum integrates some features from the 3D printing open-source community, with specific attributions provided in the code comments."));
     text_list.push_back(_L(""));
-    text_list.push_back(_L("Snapmaker Orca is licensed under the GNU Affero Generall Public License, version 3."));
+    text_list.push_back(_L("FullSpectrum is licensed under the GNU Affero Generall Public License, version 3."));
     
     text_sizer->Add( 0, 0, 0, wxTOP, FromDIP(33));
     bool is_zh = wxGetApp().app_config->get("language") == "zh_CN";

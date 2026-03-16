@@ -3900,7 +3900,7 @@ void SSWCP_MachineConnect_Instance::sw_get_pin_code()
 
             auto        weak_self = std::weak_ptr<SSWCP_Instance>(shared_from_this());
             wxGetApp().CallAfter([=]() {
-                MqttClient* mqtt_client = new MqttClient("mqtt://" + ip + ":" + std::to_string(port), "Snapmaker Orca");
+                MqttClient* mqtt_client = new MqttClient("mqtt://" + ip + ":" + std::to_string(port), "FullSpectrum");
                 std::string connect_msg = "";
                 if (mqtt_client->Connect(connect_msg)) {
                     std::string sub_msg = "success";
